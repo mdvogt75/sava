@@ -1,0 +1,61 @@
+* {transition-property:all; transition-duration:1.5s; -webkit-user-select:none; user-select:none;}
+
+@font-face {font-family:RockEB; src:url(rock.ttf);}
+
+body {font-family:'RockEB', 'Rockwell Extra Bold', 'Rockwell Bold', 'Rockwell'; font-weight:800; margin:0px;}
+
+.dukduk       #dBack {height:1080px; width:1920px; background-image:url('dukDukGrass.jpg'); background-size:cover; overflow:hidden;}
+.hiddenBeach  #dBack {height:1080px; width:1920px; background-image:url('hiddenBeachSand.jpg'); background-size:cover; overflow:hidden;}
+.waupacaSand  #dBack {height:1080px; width:1920px; background-image:url('waupacaSand.jpg'); background-size:cover; overflow:hidden;}
+.waupacaGrass #dBack {height:1080px; width:1920px; background-image:url('waupacaGrass.jpg'); background-size:cover; overflow:hidden;}
+
+/* GAME COUNTER RELATED */
+.games     {position:absolute; top:0%; height:200px; width:200px; margin-left:-110px; color:black; font-size: 100px;  text-align:center; font-weight:800; -webkit-text-stroke:3px white;}
+[side='left']  .games {left:610px;}
+[side='right'] .games {left:1300px;}
+
+/* SCORE RELATED */
+.score {position:absolute; top:110px; height:760px; width:760px; margin-left:-380px; margin-top:0px; color:white; font-size:550px; line-height:760px; letter-spacing:-110px;  text-align:center; font-weight:800; -webkit-text-stroke:5px black; cursor:pointer; zborder:1px solid red;}		
+[side='left']  .score {left:510px;}		
+[side='right'] .score {left:1405px;}
+
+/* TEAM NAME RELATED */
+.team {position:absolute; top:800px; height:100px; width:760px; margin-top:0px; color:black; font-size:90px; line-height:100px; letter-spacing:-7px; font-weight:800; text-align:center; -webkit-text-stroke:3px #79bdde; zborder:1px solid red;}		
+[side='left']  .team {left:130px;}
+[side='right'] .team {left:1025px}
+
+/* SERVICE INDICATOR RELATED */
+.service     {position: absolute; top:750px; margin-top:0px;}
+.service img {height:175px;}		
+[side='left']  .service {left:0px;    margin-left:35px;}
+[side='right'] .service {left:1920px; margin-left:-190px;}
+
+[teamServing="team1"] #team1Serve {display:block;}
+[teamServing="team1"] #team2Serve {display:none;}
+[teamServing="team2"] #team2Serve {display:block;}
+[teamServing="team2"] #team1Serve {display:none;}
+
+/* SETTINGS RELATED */
+#detailsDiv   {position:absolute; top:50px; left:50px; height:730px; width:1570px; padding:100px; background-image:url('bg.png'); color:white; font-size:50px; -webkit-border-radius:50px; border:25px solid grey;}
+.hidden       {display:none;}
+.visible      {display:block;}
+#detailsTable {color:white; font-size:50px; letter-spacing:-3px; width:100%;}
+
+td                 {padding:25px 25px 0px 0px; line-height:40px;}
+td:nth-child(odd)  {text-align:right; width:300px;}
+td:nth-child(even) {text-align:left;  width:300px; }
+input {height:50px; width:275px; font-size:40px;}
+
+
+#switchMsgDiv {position:absolute; top:50px; left:50px; height:980px; width:1820px; background-color:red; text-align:center; color:white; line-height:490px; font-size:250px; display:none;}
+
+/* TIMEOUT RELATED */
+.timeOut1 {position:absolute; top:5px; margin-top:0px; margin-left:0px;}
+.timeOut2 {position:absolute; top:5px; margin-top:0px; margin-left:80px;}
+[side='left']  .timeOut1 {left:0px;    margin-left:10px;}
+[side='left']  .timeOut2 {left:0px;    margin-left:90px;}
+[side='right'] .timeOut1 {left:1920px; margin-left:-90px;}
+[side='right'] .timeOut2 {left:1920px; margin-left:-170px;}
+[taken="false"] {opacity:1.0; cursor:pointer;}
+[taken="true"]  {opacity:0.1; cursor:arrow;}
+#TOCountDownDiv {position:absolute; top:50px; left:50px; height:930px; width:1770px; background-image:url('redbg.png'); text-align:center; color:white; line-height:930px; font-size:450px; font-family:arial; letter-spacing:-40px; -webkit-border-radius:50px; border:25px solid black;}

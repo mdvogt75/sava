@@ -1,0 +1,131 @@
+<!--
+ TODO:
+   Track current server
+   Add validation of input parameters
+   Modify to post game details instead of just posting actions (e.g. Instead of posting a point, post the score.  Instead of posting a time out, post number of timeouts remaining, etc.)
+       Post with a game id in order to enable automatic score updates on main tournament display
+   Work on verbiage used in settings
+   Add defaults for settings (e.g. SAND - games to=21 switch every=7  INDOOR - games to=25 switch every=0/NA)
+   Add a help/? icon which brings up instructions
+   Replace tap/click with swipes (e.g. up=addPoint, dn=subPoint, etc.) 	
+   Change ding sound to horn or whistle ???
+   Add submission of scores to a server
+   Add color coding of leading score on game point
+   Add ability to pick backgrounds, logos, footer 
+   Change to set timeout time remaining using (time - startTime) instead of subtracting 1 every one second interval  
+   Add animation of team names (using random font function - dynamically create two different random styles and keep "morphing"" between the two) 
+   Change to use two digit scores (i.e. 00 instead of just 0) ???
+   Add error correction capabilities
+       What if you accidently touch the timeout button?
+	   What if you accidently increase the score?
+   Add "TIMOUT" label to TO dialog - Also team name possibly
+   Get rid of globals - particularly teamNumRequestingTO
+   Finish game summary string to enable recap/recreation of game events
+       
+    <link rel="manifest" href="sava.manifest">
+	
+	QUESTIONS:
+	  Easiest way to "clean up" code (e.g. find all unused variables, unused css, etc.)	
+-->	
+<html>
+    <head>
+		<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+		<meta name="viewport" content="height=1080, width=1920, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		
+		<link rel="apple-touch-icon" href="launcher-icon-4x.png">
+		<link rel="apple-touch-startup-image" href="startup.png">
+		
+		<meta name="mobile-web-app-capable" content="yes">
+		
+		<link rel="manifest" href="manifest.json">
+		
+		<link rel="stylesheet" type="text/css" href="score.css">	
+		
+		<script type="text/javascript" src="ajax.js"></script>
+		<script type="text/javascript" src="score.js"></script>
+	</head>
+	
+	<body class="" leftSide="team1" teamServing="team1" playerServing="player1">
+		<audio id="ding">
+			<source src="Ding.wav" type="audio/wav">
+			Your browser does not support the audio element.
+		</audio>
+
+		<div id="dBack"></div>
+		<div id="scores"></div>
+		
+		<div id="team1" side="left">
+			<div id="team1Games" class="games">0</div>	
+			<div id="team1Score" class="score" onClick="touch(1);">0</div>	
+			<div id="team1Name1" class="team">TEAM</div>	
+			<div id="team1Name2" class="team" style="margin-top:60px;">ONE</div>
+			<div id="team1Serve" class="service"><img src="ball.png"></div>
+			<div id="team1TO1" class="timeOut1" taken="false" onClick="touchTO(1);"><img src="timeOutIcon.png" /></div>	
+			<div id="team1TO2" class="timeOut2" taken="false" onClick="touchTO(1);"><img src="timeOutIcon.png" /></div>	
+		</div>
+		
+		<div id="team2" side="right">
+			<div id="team2Games" class="games">0</div>	
+			<div id="team2Score" class="score" onClick="touch(2);">0</div>	
+			<div id="team2Name1" class="team">TEAM</div>	
+			<div id="team2Name2" class="team" style="margin-top:60px;">TWO</div>	
+			<div id="team2Serve" class="service"><img src="ball.png"></div>	
+			<div id="team2TO1" class="timeOut1" taken="false" onClick="touchTO(2);"><img src="timeOutIcon.png" /></div>	
+			<div id="team2TO2" class="timeOut2" taken="false" onClick="touchTO(2);"><img src="timeOutIcon.png" /></div>	
+		</div>
+		
+		<div id="detailsDiv" class="visible">
+			<table id="detailsTable">
+				<tr>
+					<td>GAMES TO</td>
+					<td><input id="gamesTo" type="text" value=""></td>
+					<td>WIN BY</td>
+					<td><input id="winBy" type="text" value=""></td>
+				</tr>
+				<tr>
+					<td>CAP AT</td>
+					<td><input id="capAt" type="text" value=""></td>
+					<td>SWITCH EVERY</td>
+					<td><input id="switchEvery" type="text" value=""></td>
+				</tr>
+				<tr>
+					<td>BEST</td>
+					<td><input id="best" type="text" value=""></td>
+					<td>OUT OF</td>
+					<td><input id="outOf" type="text" value=""></td>
+				</tr>
+				<tr>
+					<td colspan=3><br>SEND REMOTE COMMANDS</td><td style="text-align:left;"><input id="publish" type="checkbox"></td>
+				</tr>
+				<tr>
+					<td colspan=3>CHECK FOR REMOTE COMMANDS</td><td style="text-align:left;"><input id="subscribe" type="checkbox"></td>
+				</tr>
+				<tr>
+					<td colspan=2 style="text-align:center;"><br>TEAM 1</td>
+					<td colspan=2 style="text-align:center;"><br>TEAM 2</td>
+				</tr>
+				<tr>
+					<td>PLAYER 1</td>
+					<td><input id="t1p1" type="text" value=""></td>
+					<td>PLAYER 1</td>
+					<td><input id="t2p1" type="text" value=""></td>
+				</tr>
+				<tr>
+					<td>PLAYER 2</td>
+					<td><input id="t1p2" type="text" value=""></td>
+					<td>PLAYER 2</td>
+					<td><input id="t2p2" type="text" value=""></td>
+				</tr>
+				<tr>
+					<td colspan=4 style="text-align:center;"><input name="done" type="button" value="DONE" onClick="saveSettings();" /></td>
+				</tr>
+			</table>
+		</div>
+		
+		<div id="switchMsgDiv" onClick="confirmSwitch();">SWITCH<br>SIDES</div>
+		
+		<div id="TOCountDownDiv" class="hidden">0:60</div>
+	</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "SAVA Scoreboard App",
+  "icons": [
+    {
+      "src": "launcher-icon-4x.png",
+      "sizes": "439x439",
+      "type": "image/png",
+      "density": 4.0
+    }
+  ],
+  "start_url": "index.htm",
+  "display": "standalone",
+  "orientation": "landscape"
+}

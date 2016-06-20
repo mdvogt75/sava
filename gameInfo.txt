@@ -1,0 +1,139 @@
+{ "match" : {
+    "gameType" : "dukduk",
+    "team1GamesWon" : 0,
+    "team2GamesWon" : 0,
+    "team1TOsAvail" : 2,
+    "team1TOsRemain" : 2,
+    "team2TOsAvail" : 2,
+    "team2TOsRemain" : 2,
+    "team1Score" : 5,
+    "team2Score" : 5,
+    "t1p1" : "TEAM1",
+    "t1p2" : "NAME",
+    "t2p1" : "TEAM2",
+    "t2p2" : "NAME",
+    "rules" : {
+         "gameTo" : 21,
+         "winBy" : 2,
+         "capAt" : 27,
+         "switchEvery" : 7,
+         "best" : 2,
+         "outOf" : 3
+       }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+		rules 
+			rulesID        stdSandDoubles tieBreakSandDoubles
+				matchRules
+					best          2             
+					outOf         3
+					numTOs        2
+				gameRules
+					gamesTo       21             15
+					winBy         2              2
+					capAt         27             0
+					switchEvery   7              7
+					numTOs        1
+
+		match 
+			team1Name
+			team1Player1
+			team1Player2
+			
+			team2Name
+			team2Player1
+			team2Player2
+
+		game
+			gameID
+			
+			rulesID 
+
+			team1Side/team2Side
+
+			teamServing1st
+			?playerServing1st?
+		
+			gameSummaryString (1222121112121222221112)
+
+
+				team1Score
+				team2Score
+				toRemainingTeam1
+				toRemainingTeam2
+
+		<div id="team1" side="left">
+			<div id="team1Games" class="games">0</div>	
+			<div id="team1Score" class="score" onClick="touch(1);">0</div>	
+			<div id="team1Name1" class="team">TEAM</div>	
+			<div id="team1Name2" class="team" style="margin-top:60px;">ONE</div>
+			<div id="team1Serve" class="service"><img src="ball.png"></div>
+			<div id="team1TO1" class="timeOut1" taken="false" onClick="touchTO(1);"><img src="timeOutIcon.png" /></div>	
+			<div id="team1TO2" class="timeOut2" taken="false" onClick="touchTO(1);"><img src="timeOutIcon.png" /></div>	
+		</div>
+		
+		<div id="team2" side="right">
+			<div id="team2Games" class="games">0</div>	
+			<div id="team2Score" class="score" onClick="touch(2);">0</div>	
+			<div id="team2Name1" class="team">TEAM</div>	
+			<div id="team2Name2" class="team" style="margin-top:60px;">TWO</div>	
+			<div id="team2Serve" class="service"><img src="ball.png"></div>	
+			<div id="team2TO1" class="timeOut1" taken="false" onClick="touchTO(2);"><img src="timeOutIcon.png" /></div>	
+			<div id="team2TO2" class="timeOut2" taken="false" onClick="touchTO(2);"><img src="timeOutIcon.png" /></div>	
+		</div>
+			*/
+
+
+
+
+echo
+{ "match" : {
+    "gameType" : "dukduk",
+    "team1GamesWon" : 0,
+    "team2GamesWon" : 0,
+    "team1TOsAvail" : 2,
+    "team1TOsRemain" : 2,
+    "team2TOsAvail" : 2,
+    "team2TOsRemain" : 2,
+    "team1Score" : 5,
+    "team2Score" : 5,
+    "t1p1" : "TEAM1",
+    "t1p2" : "NAME",
+    "t2p1" : "TEAM2",
+    "t2p2" : "NAME",
+    "rules" : {
+         "gameTo" : 21,
+         "winBy" : 2,
+         "capAt" : 27,
+         "switchEvery" : 7,
+         "best" : 2,
+         "outOf" : 3
+       }
+    }
+}            
