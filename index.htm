@@ -1,29 +1,40 @@
 <!--
  TODO:
-   Track current server
-   Add validation of input parameters
-   Modify to post game details instead of just posting actions (e.g. Instead of posting a point, post the score.  Instead of posting a time out, post number of timeouts remaining, etc.)
-       Post with a game id in order to enable automatic score updates on main tournament display
-   Work on verbiage used in settings
+   Delete unused files or move to backup directory
+   Plan and code side/serve logic (choose serve/receive and choose side)
+   Test/Fix team serving first
+   Sync variable names and related element names
+   Schedule generation populates most all rules, but all can be overridden during scoring/setup (Warning if "picking up" scoring mid-game i.e.  )
+   Add validation of settings/rules/input parameters
    Add defaults for settings (e.g. SAND - games to=21 switch every=7  INDOOR - games to=25 switch every=0/NA)
    Add a help/? icon which brings up instructions
-   Replace tap/click with swipes (e.g. up=addPoint, dn=subPoint, etc.) 	
-   Change ding sound to horn or whistle ???
-   Add submission of scores to a server
+     
+   Change to use two digit scores (i.e. 00 instead of just 0) ???
+   Get rid of globals - particularly teamNumRequestingTO
+   ?Finish game summary string to enable recap/recreation of game events
    Add color coding of leading score on game point
    Add ability to pick backgrounds, logos, footer 
-   Change to set timeout time remaining using (time - startTime) instead of subtracting 1 every one second interval  
    Add animation of team names (using random font function - dynamically create two different random styles and keep "morphing"" between the two) 
-   Change to use two digit scores (i.e. 00 instead of just 0) ???
-   Add error correction capabilities
-       What if you accidently touch the timeout button?
-	   What if you accidently increase the score?
-   Add "TIMOUT" label to TO dialog - Also team name possibly
-   Get rid of globals - particularly teamNumRequestingTO
-   Finish game summary string to enable recap/recreation of game events
        
     <link rel="manifest" href="sava.manifest">
 	
+  DONE:
+	Work on verbiage used in settings
+    Add a START button and update capabilities for TimeOut timer
+    Track current server(s) - TEST
+    Replace tap/click with swipes (e.g. up=addPoint, dn=subPoint, etc.) 	
+    Change to set timeout time remaining using (time - startTime) instead of subtracting 1 every one second interval
+    Add error correction capabilities
+      What if you accidently touch the timeout button?
+	  What if you accidently increase the score?
+    Add "TIMEOUT" label to TO dialog - Also team name possibly
+    Modify to post game details instead of just posting actions (e.g. Instead of posting a point, post the score.  Instead of posting a time out, post number of timeouts taken/remaining, etc.)
+     	Post with a gameId in order to enable automatic score updates on main tournament display
+   		Add submission of scores to a server
+		Make sure to upload/sync timeLeft in case system goes down during timeout 
+   Change ding sound to horn or whistle ???
+   
+
 	QUESTIONS:
 	  Easiest way to "clean up" code (e.g. find all unused variables, unused css, etc.)	
 -->	
@@ -47,10 +58,12 @@
 		<script type="text/javascript" src="score.js"></script>
 	</head>
 	
-	<body class="" leftSide="team1" teamServing="team1" playerServing="player1">
-		<audio id="ding">
+	<body class="" leftSide="team1" teamServing="1" playerServing="1">
+		<audio id="whistle" preload="auto">
+			<source src="whistle.wav" type="audio/wav">
+		</audio>
+		<audio id="ding" preload="auto">
 			<source src="Ding.wav" type="audio/wav">
-			Your browser does not support the audio element.
 		</audio>
 
 		<div id="dBack"></div>
@@ -58,74 +71,84 @@
 		
 		<div id="team1" side="left">
 			<div id="team1Games" class="games">0</div>	
-			<div id="team1Score" class="score" onClick="touch(1);">0</div>	
-			<div id="team1Name1" class="team">TEAM</div>	
-			<div id="team1Name2" class="team" style="margin-top:60px;">ONE</div>
-			<div id="team1Serve" class="service"><img src="ball.png"></div>
-			<div id="team1TO1" class="timeOut1" taken="false" onClick="touchTO(1);"><img src="timeOutIcon.png" /></div>	
-			<div id="team1TO2" class="timeOut2" taken="false" onClick="touchTO(1);"><img src="timeOutIcon.png" /></div>	
+			<div id="team1Score" class="score">0</div>	
+			<div id="team1Name1" class="name">TEAM</div>	
+			<div id="team1Name2" class="name">ONE</div>
+			<div id="team1Serve" class="service"><img src="ball.png"><div id="team1ServerNum">1</div></div>
+			<div id="team1TO1"   class="timeOut1" taken="false" onClick="touchTO(1);"><img src="timeOutIcon.png" /></div>	
+			<div id="team1TO2"   class="timeOut2" taken="false" onClick="touchTO(1);"><img src="timeOutIcon.png" /></div>	
 		</div>
 		
 		<div id="team2" side="right">
 			<div id="team2Games" class="games">0</div>	
-			<div id="team2Score" class="score" onClick="touch(2);">0</div>	
-			<div id="team2Name1" class="team">TEAM</div>	
-			<div id="team2Name2" class="team" style="margin-top:60px;">TWO</div>	
-			<div id="team2Serve" class="service"><img src="ball.png"></div>	
-			<div id="team2TO1" class="timeOut1" taken="false" onClick="touchTO(2);"><img src="timeOutIcon.png" /></div>	
-			<div id="team2TO2" class="timeOut2" taken="false" onClick="touchTO(2);"><img src="timeOutIcon.png" /></div>	
+			<div id="team2Score" class="score">0</div>	
+			<div id="team2Name1" class="name">TEAM</div>	
+			<div id="team2Name2" class="name">TWO</div>	
+			<div id="team2Serve" class="service"><img src="ball.png"><div id="team2ServerNum">0</div></div>	
+			<div id="team2TO1"   class="timeOut1" taken="false" onClick="touchTO(2);"><img src="timeOutIcon.png" /></div>	
+			<div id="team2TO2"   class="timeOut2" taken="false" onClick="touchTO(2);"><img src="timeOutIcon.png" /></div>	
 		</div>
-		
-		<div id="detailsDiv" class="visible">
+
+		<img id="helpIcon"     src="help.png"     onClick="showHelp();" />
+		<img id="settingsIcon" src="settings.png" onClick="updateSettings();" />
+
+		<div id="detailsDiv" class="hidden">
 			<table id="detailsTable">
 				<tr>
 					<td>GAMES TO</td>
-					<td><input id="gamesTo" type="text" value=""></td>
+					<td><input id="gamesTo" type="text" helpText="Enter the number of points required to win a game" value=""></td>
 					<td>WIN BY</td>
-					<td><input id="winBy" type="text" value=""></td>
+					<td><input id="winBy" type="text" helpText="Enter the number of points you must lead by in order to win" value=""></td>
 				</tr>
 				<tr>
 					<td>CAP AT</td>
-					<td><input id="capAt" type="text" value=""></td>
+					<td><input id="capAt" type="text" helpText="Enter the number of points at which the winBy points become invalid" value=""></td>
 					<td>SWITCH EVERY</td>
-					<td><input id="switchEvery" type="text" value=""></td>
+					<td><input id="switchEvery" type="text" helpText="Enter the number of points between side switches" value=""></td>
 				</tr>
 				<tr>
 					<td>BEST</td>
-					<td><input id="best" type="text" value=""></td>
+					<td><input id="best" type="text" helpText="Enter the number of games that must be won to win the match" value=""></td>
 					<td>OUT OF</td>
-					<td><input id="outOf" type="text" value=""></td>
+					<td><input id="outOf" type="text" helpText="Enter the maximum number of games in a match" value=""></td>
 				</tr>
 				<tr>
-					<td colspan=3><br>SEND REMOTE COMMANDS</td><td style="text-align:left;"><input id="publish" type="checkbox"></td>
-				</tr>
-				<tr>
-					<td colspan=3>CHECK FOR REMOTE COMMANDS</td><td style="text-align:left;"><input id="subscribe" type="checkbox"></td>
+					<td colspan=4>
+						<table class="radioset"><tr>
+						    <td><div id="standalone" class="rschoice" selected="yes" onclick="choose();">STANDALONE</div></td>
+							<td><div id="controller" class="rschoice" selected="no"  onclick="choose();">CONTROLLER</div></td>
+							<td><div id="display"    class="rschoice" selected="no"  onclick="choose();">DISPLAY</div></td>
+						</tr></table>	
+					</td>
 				</tr>
 				<tr>
 					<td colspan=2 style="text-align:center;"><br>TEAM 1</td>
 					<td colspan=2 style="text-align:center;"><br>TEAM 2</td>
 				</tr>
 				<tr>
-					<td>PLAYER 1</td>
+					<td>NAME 1</td>
 					<td><input id="t1p1" type="text" value=""></td>
-					<td>PLAYER 1</td>
-					<td><input id="t2p1" type="text" value=""></td>
+					<td>NAME 1</td>
+					<td><input id="t2p1" type="text" helpText="" value=""></td>
 				</tr>
 				<tr>
-					<td>PLAYER 2</td>
-					<td><input id="t1p2" type="text" value=""></td>
-					<td>PLAYER 2</td>
-					<td><input id="t2p2" type="text" value=""></td>
+					<td>NAME 2</td>
+					<td><input id="t1p2" type="text" helpText="" value=""></td>
+					<td>NAME 2</td>
+					<td><input id="t2p2" type="text" helpText="" value=""></td>
 				</tr>
 				<tr>
 					<td colspan=4 style="text-align:center;"><input name="done" type="button" value="DONE" onClick="saveSettings();" /></td>
+				</tr>
+				<tr>
+					<td id="helpText" colspan=4 style="text-align:center;"></td>
 				</tr>
 			</table>
 		</div>
 		
 		<div id="switchMsgDiv" onClick="confirmSwitch();">SWITCH<br>SIDES</div>
 		
-		<div id="TOCountDownDiv" class="hidden">0:60</div>
+		<div id="TOCountDownDiv" class="hidden"><div id="timeoutLabel">TIMEOUT</div><div id="timeoutTeamName">TEAMNAME</div><div id="timeLeft"></div><div id="startTimeOut" onClick="startTimer();">START</div><div id="cancelTO" onClick="cancelTO();">X</div></div>
+		
 	</body>
 </html>

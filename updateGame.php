@@ -43,10 +43,12 @@
 
   // Build the SQL query that will update the database with the values specified 
   if ($_GET["change"] == "setScore") {
-    $updateQuery = "UPDATE `game` SET `score" . $_GET["team"] . "`='" . $_GET["value"] . "' WHERE gameID = " . $_GET["gameID"];
-  } else if ($_GET["change"] == "setTOs") {
-    // SCHEMA CHANGE NECESSARY TO ENABLE THIS FUNCTIONALITY
-    //$updateQuery = "UPDATE `game` SET `tosAvail" . $_GET["team"] . "`='" . $_GET["value"] . "' WHERE gameID = " . $_GET["gameID"];
+    // UPDATE `game` SET `score1`=11111,`score2`=22222,`TOsTaken1`=[value-6],`TOsTaken2`=[value-7],`teamServing`=[value-8],`playerServing`=[value-9],`teamOnLeft`=[value-12],`winner`=[value-13] WHERE 1 
+    //$updateQuery = "UPDATE `game` SET `score" . $_GET["team"] . "`='" . $_GET["value"] . "' WHERE matchID = " . $_GET["gameID"];
+
+    $updateQuery = "UPDATE 'game' SET 'score1'=" . $_GET["score1"] . ",'score2'=" . $_GET["score2"] . ",'TOsTaken1'=" . $_GET["TOsTaken1"] . ",'TOsTaken2'=" . $_GET["TOsTaken2"] . ",'teamServing'=" . $_GET["teamServing"] . 
+                                    ",'playerServing'=" . $_GET["playerServing"] . ",'teamOnLeft'=" . $_GET["teamOnLeft"] . ",'winner'=" . $_GET["winner"] . " WHERE 111111";
+
   }
 
   // Execute query
