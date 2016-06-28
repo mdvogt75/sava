@@ -12,7 +12,9 @@ body {font-family:'RockEB', 'Rockwell Extra Bold', 'Rockwell Bold', 'Rockwell'; 
 .waupacaGrass #dBack {height:1080px; width:1920px; background-image:url('waupacaGrass.jpg'); background-size:cover; overflow:hidden;}
 
 /* INSTRUCTIONS RELATED */
-#instructionsDiv  {position:absolute; z-index:90; height:1080px; width:1920px; left:0px; top:0px; background-color:black; color:white;}
+#instructionsDiv  {position:absolute; z-index:90; height:1080px; width:1920px; left:0px; top:0px; background-image:url(bg.png); }
+
+:not([tip='']) #instructionsDiv  {display:none;}
 [tip='1'] [#tip1] {display:block;}
 :not([tip='1']) [#tip1] {display:none;}
 
