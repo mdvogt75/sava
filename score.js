@@ -381,6 +381,8 @@ function cancelTO() {
 ********************************************************************************/
 function touchTO(teamNum) {
 	if(timeLeft > 0) {
+	} else if(document.body.getAttribute("tip") != "") {
+
 	} else {
 		console.log("timeout " + teamNum);
 		if(!subscribeToRemoteCommands) {
@@ -594,9 +596,24 @@ document.addEventListener("focus", function(event) {
 /********************************************************************************
 * Function to display tooltip like text for inputs with a helpText attribute
 ********************************************************************************/
-function showHelp() {
-	document.querySelector("#instructionsDiv").style.display = "block";
-	document.body.setAttribute("tip",1);
+function nextTip() {
+	switch(document.body.getAttribute("tip")) {
+		case "":
+			document.body.setAttribute("tip",1);
+			break;
+		case "1":
+			document.body.setAttribute("tip",2);
+			break;
+		case "2":
+			document.body.setAttribute("tip",3);
+			break;
+		case "3":
+			document.body.setAttribute("tip",4);
+			break;
+		case "4":
+			document.body.setAttribute("tip","");
+			break;
+	}
 }
 
 

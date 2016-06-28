@@ -87,7 +87,7 @@
 			<div id="team2TO2"   class="timeOut2" taken="false" onClick="touchTO(2);"><img src="timeOutIcon.png" /></div>	
 		</div>
 
-		<img id="helpIcon"     src="help.png"     onClick="showHelp();" />
+		<img id="helpIcon"     src="help.png"     onClick="nextTip();" />
 		<img id="settingsIcon" src="settings.png" onClick="updateSettings();" />
 
 		<div id="detailsDiv" class="hidden">
@@ -148,12 +148,10 @@
 		
 		<div id="TOCountDownDiv" class="hidden"><div id="timeoutLabel">TIMEOUT</div><div id="timeoutTeamName">TEAMNAME</div><div id="timeLeft"></div><div id="startTimeOut" onClick="startTimer();">START</div><div id="cancelTO" onClick="cancelTO();">X</div></div>
 
-		<div id="instructionsDiv"></div>
-		<!--
-		<div id="tip1" class="instruction">1) increase a score swipe up on it<img id="instr1" src="swipeUp.png" /></div>
-		<div id="tip2" class="instruction">2) increase a score swipe up on it<img id="instr2" src="swipeDown.png" /></div>
-		<div id="tip3" class="instruction">3) increase a score swipe up on it<img id="instr3" src="swipeUp.png" /></div>
-		<div id="tip4" class="instruction">4) increase a score swipe up on it<img id="instr4" src="swipeUp.png" /></div>
-		-->
+		<div id="instructionsDiv" onClick="nextTip();"></div>
+		<div id="tip1" class="instruction">TO INCREASE<br>A SCORE<br>SWIPE UP ON IT<br><img id="instr1" src="swipeUp.png" /></div>
+		<div id="tip2" class="instruction">TO DECREASE<br>A SCORE<br>SWIPE DOWN ON IT<br><img id="instr2" src="swipeDown.png" /></div>
+		<div id="tip3" class="instruction">TO TAKE A TIMEOUT TAP ON AN ICON</div>
+		<div id="tip4" class="instruction">TO CHANGE SETTINGS TAP ON THIS ICON</div>
 	</body>
 </html>

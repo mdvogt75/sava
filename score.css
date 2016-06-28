@@ -12,11 +12,36 @@ body {font-family:'RockEB', 'Rockwell Extra Bold', 'Rockwell Bold', 'Rockwell'; 
 .waupacaGrass #dBack {height:1080px; width:1920px; background-image:url('waupacaGrass.jpg'); background-size:cover; overflow:hidden;}
 
 /* INSTRUCTIONS RELATED */
-#instructionsDiv  {position:absolute; z-index:90; height:1080px; width:1920px; left:0px; top:0px; background-image:url(bg.png); opacity:0.7;}
+#instructionsDiv  {position:absolute; z-index:90; height:1080px; width:1920px; left:0px; top:0px; background-image:url(bg.png); opacity:0.9;}
 
-:not([tip='']) #instructionsDiv  {display:none;}
+.instruction {color:white; font-size:70px; letter-spacing:-4px; text-align:center; display:none;}
+
+#tip1 {position:absolute; z-index:95; height:1080px; width:600px; left:250px; top:300px; }
+#tip2 {position:absolute; z-index:95; height:1080px; width:600px; left:1150px; top:300px; }
+#tip3 {position:absolute; z-index:95; height:1080px; width:1920px; left:0px; top:0px; }
+#tip4 {position:absolute; z-index:95; height:1080px; width:1820px; left:0px; top:950px; }
+
+[tip='']  #instructionsDiv  {display:none;}
+
+[tip='1'] #instructionsDiv  {display:block;}
+[tip='1'] #tip1 {display:block;}
+
+[tip='']  #tip1 img {margin-top:1000px;}
+[tip='1'] #tip1 img {margin-top:0px;}
+
+[tip='2'] #instructionsDiv  {display:block;}
+[tip='2'] #tip2 {display:block;}
+
+[tip='3'] #instructionsDiv  {display:block;}
+[tip='3'] #tip3 {display:block;}
+[tip='3'] .timeOut1 {z-index:96;}
+[tip='3'] .timeOut2 {z-index:96;}
+
+[tip='4'] #instructionsDiv  {display:block;}
+[tip='4'] #tip4 {display:block;}
+[tip='4'] #settingsIcon {z-index:96;}
+
 /*
-[tip='1'] [#tip1] {display:block;}
 :not([tip='1']) [#tip1] {display:none;}
 
 [tip='2'] [#tip2] {display:block;}
@@ -77,8 +102,8 @@ input:focus   {background-color:red;}
 #switchMsgDiv {position:absolute; top:50px; left:50px; height:980px; width:1820px; background-color:red; text-align:center; color:white; line-height:490px; font-size:290px; display:none;}
 
 /* TIMEOUT RELATED */
-.timeOut1 {position:absolute; top:5px; margin-top:0px; margin-left:0px;}
-.timeOut2 {position:absolute; top:5px; margin-top:0px; margin-left:80px;}
+.timeOut1 {z-index:50; position:absolute; top:5px; margin-top:0px; margin-left:0px;}
+.timeOut2 {z-index:50; position:absolute; top:5px; margin-top:0px; margin-left:80px;}
 [side='left']  .timeOut1 {left:0px;    margin-left:10px;}
 [side='left']  .timeOut2 {left:0px;    margin-left:90px;}
 [side='right'] .timeOut1 {left:1920px; margin-left:-90px;}
