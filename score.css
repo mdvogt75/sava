@@ -15,12 +15,14 @@ body {font-family:'RockEB', 'Rockwell Extra Bold', 'Rockwell Bold', 'Rockwell'; 
 #instructionsDiv  {position:absolute; z-index:90; height:1080px; width:1920px; left:0px; top:0px; background-image:url(bg.png); }
 
 :not([tip='']) #instructionsDiv  {display:none;}
+/*
 [tip='1'] [#tip1] {display:block;}
 :not([tip='1']) [#tip1] {display:none;}
 
 [tip='2'] [#tip2] {display:block;}
 [tip='3'] [#tip3] {display:block;}
 [tip='4'] [#tip4] {display:block;}
+*/
 
 /* GAME COUNTER RELATED */
 .games     {position:absolute; top:0%; height:200px; width:200px; margin-left:-110px; color:black; font-size: 100px;  text-align:center; font-weight:800; -webkit-text-stroke:3px white;}
