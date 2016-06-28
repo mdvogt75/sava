@@ -299,6 +299,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	//gameRecapString = getQueryString('gameRecapString');
 	//alert(gameRecapString);
 
+	saveSettings();
+
 });
 
 
