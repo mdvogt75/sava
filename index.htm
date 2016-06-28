@@ -2,7 +2,7 @@
  TODO:
    Delete unused files or move to backup directory
    Plan and code side/serve logic (choose serve/receive and choose side)
-   Test/Fix team serving first
+   
    Sync variable names and related element names
    Schedule generation populates most all rules, but all can be overridden during scoring/setup (Warning if "picking up" scoring mid-game i.e.  )
    Add validation of settings/rules/input parameters
@@ -19,7 +19,8 @@
     <link rel="manifest" href="sava.manifest">
 	
   DONE:
-	Work on verbiage used in settings
+	Test/Fix team serving first
+    Work on verbiage used in settings
     Add a START button and update capabilities for TimeOut timer
     Track current server(s) - TEST
     Replace tap/click with swipes (e.g. up=addPoint, dn=subPoint, etc.) 	
@@ -61,9 +62,6 @@
 	<body class="" leftSide="team1" teamServing="1" playerServing="1">
 		<audio id="whistle" preload="auto">
 			<source src="whistle.wav" type="audio/wav">
-		</audio>
-		<audio id="ding" preload="auto">
-			<source src="Ding.wav" type="audio/wav">
 		</audio>
 
 		<div id="dBack"></div>
@@ -149,6 +147,13 @@
 		<div id="switchMsgDiv" onClick="confirmSwitch();">SWITCH<br>SIDES</div>
 		
 		<div id="TOCountDownDiv" class="hidden"><div id="timeoutLabel">TIMEOUT</div><div id="timeoutTeamName">TEAMNAME</div><div id="timeLeft"></div><div id="startTimeOut" onClick="startTimer();">START</div><div id="cancelTO" onClick="cancelTO();">X</div></div>
+
+		<div id="instructionsDiv">
+			<div id="tip1" class="instruction">1) increase a score swipe up on it<img id="instr1" src="swipeUp.png" /></div>
+			<div id="tip2" class="instruction">2) increase a score swipe up on it<img id="instr2" src="swipeDown.png" /></div>
+			<div id="tip3" class="instruction">3) increase a score swipe up on it<img id="instr3" src="swipeUp.png" /></div>
+			<div id="tip4" class="instruction">4) increase a score swipe up on it<img id="instr4" src="swipeUp.png" /></div>
+		</div>
 		
 	</body>
 </html>

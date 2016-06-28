@@ -247,14 +247,6 @@ function choose() {
 
 
 /********************************************************************************
-* Function to display tooltip like text for inputs with a helpText attribute
-********************************************************************************/
-function showHelp() {
-	document.querySelector("#helpText").innerHTML = event.srcElement.getAttribute("helpText");
-}
-
-
-/********************************************************************************
 * Upon load, gather scoring rules and perform other initialization
 ********************************************************************************/
 document.addEventListener("DOMContentLoaded", function(event) { 
@@ -600,8 +592,11 @@ document.addEventListener("focus", function(event) {
 
 
 /********************************************************************************
-* 
+* Function to display tooltip like text for inputs with a helpText attribute
 ********************************************************************************/
 function showHelp() {
-
+	document.querySelector("#instructionsDiv").style.display = "block";
+	document.body.setAttribute("tip",1);
 }
+
+
