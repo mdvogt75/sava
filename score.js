@@ -543,8 +543,9 @@ document.addEventListener("touchmove", function(event) {
     var teamOnLeft, teamOnRight;
 
 	if(!subscribeToRemoteCommands) {
+
 		// Ignore movement if current touch has already caused a point
-		if(downY !== null) {
+		if(downY !== null && document.body.getAttribute("tip") == "") {
 			//diffX = downX - event.touches[0].clientX;
 			diffY = downY - event.touches[0].clientY;
 
@@ -557,8 +558,8 @@ document.addEventListener("touchmove", function(event) {
 				teamOnLeft = 2;
 			}
 			
-			// If movement is greather than 80px upward
-			if(diffY >= 80) {
+			// If movement is greather than 200px upward
+			if(diffY >= 200) {
 				// Once swipe is detected clear variable to avoid detecting multiple swipes
 				downY = null;
 				
@@ -569,8 +570,8 @@ document.addEventListener("touchmove", function(event) {
 				} else {
 					point(teamOnRight, "+");
 				}
-			// Otherwise check if movement is greather than 80px downward
-			} else if(diffY <= -300) {
+			// Otherwise check if movement is greather than 500px downward
+			} else if(diffY <= -500) {
 				downY = null;  
 
 				// If swipe was on left half of the screen
